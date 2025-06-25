@@ -6,20 +6,61 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Building, Waves, Mountain, Pin } from 'lucide-react';
+import { Building, Waves, Mountain, Pin, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
+import { Skeleton } from '../ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+
+const containerStyle = {
+  width: '100%',
+  height: '600px',
+  borderRadius: '0.5rem',
+};
+
+const center = {
+  lat: 20,
+  lng: 15
+};
+
+const mapStyles = [
+  { elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+  { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] },
+  { featureType: "administrative.land_parcel", stylers: [{ visibility: "off" }] },
+  { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#bdbdbd" }] },
+  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+  { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+  { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] },
+  { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+  { featureType: "road.arterial", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#dadada" }] },
+  { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+  { featureType: "road.local", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+  { featureType: "transit.line", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] },
+  { featureType: "transit.station", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9c9c9" }] },
+  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+];
 
 const destinations = [
-  { name: 'Paris, France', position: { top: '35%', left: '48%' }, hint: 'Eiffel tower' },
-  { name: 'Kyoto, Japan', position: { top: '42%', left: '85%' }, hint: 'temple shrine' },
-  { name: 'Cairo, Egypt', position: { top: '52%', left: '55%' }, hint: 'pyramids desert' },
-  { name: 'Rio de Janeiro, Brazil', position: { top: '80%', left: '30%' }, hint: 'Christ Redeemer' },
-  { name: 'Sydney, Australia', position: { top: '85%', left: '88%' }, hint: 'opera house' },
+  { name: 'Paris, France', position: { lat: 48.8566, lng: 2.3522 }, hint: 'Eiffel tower' },
+  { name: 'Kyoto, Japan', position: { lat: 35.0116, lng: 135.7681 }, hint: 'temple shrine' },
+  { name: 'Cairo, Egypt', position: { lat: 30.0444, lng: 31.2357 }, hint: 'pyramids desert' },
+  { name: 'Rio de Janeiro, Brazil', position: { lat: -22.9068, lng: -43.1729 }, hint: 'Christ Redeemer' },
+  { name: 'Sydney, Australia', position: { lat: -33.8688, lng: 151.2093 }, hint: 'opera house' },
 ];
 
 export default function DestinationMap() {
   const [budget, setBudget] = useState(5000);
+  const [selected, setSelected] = useState<(typeof destinations[0] | null)>(null);
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  });
 
   return (
     <Card className="w-full shadow-lg overflow-hidden">
@@ -58,35 +99,59 @@ export default function DestinationMap() {
             <Button className="w-full">Search</Button>
           </div>
         </div>
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden border bg-background">
-          <Image
-            src="https://placehold.co/1200x700/EBF5FB/888888.png"
-            alt="World Map"
-            fill
-            data-ai-hint="stylized world map"
-            className="object-cover opacity-70"
-          />
-          {destinations.map((dest) => (
-            <Popover key={dest.name}>
-              <PopoverTrigger asChild>
-                <button
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-125"
-                  style={{ top: dest.position.top, left: dest.position.left }}
-                  aria-label={`Location marker for ${dest.name}`}
+        <div className="relative w-full rounded-lg overflow-hidden border bg-background" style={{ height: containerStyle.height }}>
+          {loadError && (
+             <Alert variant="destructive" className="h-full">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Map Error</AlertTitle>
+                <AlertDescription>
+                  There was an error loading the map. Please check the API key and try again.
+                </AlertDescription>
+            </Alert>
+          )}
+          {!isLoaded && !loadError && <Skeleton className="h-full w-full" />}
+          {isLoaded && !loadError && (
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={3}
+              options={{ styles: mapStyles, disableDefaultUI: true, zoomControl: true, minZoom: 2, maxZoom: 15 }}
+            >
+              {destinations.map((dest) => (
+                <Marker
+                  key={dest.name}
+                  position={dest.position}
+                  onClick={() => {
+                    setSelected(dest);
+                  }}
+                  icon={{
+                    path: 'M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0',
+                    fillColor: 'hsl(var(--primary))',
+                    fillOpacity: 0.9,
+                    strokeColor: 'hsl(var(--primary-foreground))',
+                    strokeWeight: 2,
+                    scale: 0.5,
+                  }}
+                />
+              ))}
+
+              {selected ? (
+                <InfoWindow
+                  position={selected.position}
+                  onCloseClick={() => {
+                    setSelected(null);
+                  }}
                 >
-                  <Pin className="h-8 w-8 text-primary drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" fill="currentColor" />
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-60">
-                <div className="space-y-3">
-                  <h4 className="font-semibold font-headline">{dest.name}</h4>
-                  <Image src={`https://placehold.co/200x100.png`} alt={dest.name} width={200} height={100} className="rounded-md border" data-ai-hint={dest.hint} />
-                  <p className="text-sm text-muted-foreground">Discover the beauty and culture of {dest.name}.</p>
-                  <Button size="sm" className="w-full">Explore Destination</Button>
-                </div>
-              </PopoverContent>
-            </Popover>
-          ))}
+                  <div className="space-y-3 p-2 w-60">
+                    <h4 className="font-semibold font-headline">{selected.name}</h4>
+                    <Image src={`https://placehold.co/200x100.png`} alt={selected.name} width={200} height={100} className="rounded-md border" data-ai-hint={selected.hint} />
+                    <p className="text-sm text-muted-foreground">Discover the beauty and culture of {selected.name}.</p>
+                    <Button size="sm" className="w-full">Explore Destination</Button>
+                  </div>
+                </InfoWindow>
+              ) : null}
+            </GoogleMap>
+          )}
         </div>
       </CardContent>
     </Card>
