@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import { Poppins, PT_Sans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import AppSidebar from '@/components/layout/sidebar';
-import Header from '@/components/layout/header';
 import { Toaster } from "@/components/ui/toaster"
+import AppLayout from '@/components/layout/app-layout';
 
 
 export const metadata: Metadata = {
@@ -44,17 +42,7 @@ export default function RootLayout({
           fontPTSans.variable
         )}
       >
-        <SidebarProvider>
-          <div className="flex min-h-screen">
-            <AppSidebar />
-            <main className="flex-1 flex flex-col">
-              <Header />
-              <div className="flex-1 overflow-y-auto p-4 md:p-8">
-                {children}
-              </div>
-            </main>
-          </div>
-        </SidebarProvider>
+        <AppLayout>{children}</AppLayout>
         <Toaster />
       </body>
     </html>
