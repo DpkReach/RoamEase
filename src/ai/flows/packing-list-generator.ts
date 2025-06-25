@@ -37,12 +37,13 @@ const prompt = ai.definePrompt({
   name: 'packingListPrompt',
   input: {schema: GeneratePackingListInputSchema},
   output: {schema: GeneratePackingListOutputSchema},
-  prompt: `You are a helpful travel assistant. Generate a packing list for a trip to {{{destination}}} 
-starting on {{{startDate}}} and ending on {{{endDate}}}}. 
+  prompt: `You are a helpful travel assistant. Your task is to generate a packing list based on the provided trip details. The output must be a JSON object with a single key "packingList" which is an array of strings.
 
-Consider the following preferences when generating the list: {{{preferences}}}
-
-Return only the packing list items.
+Trip Details:
+- Destination: {{{destination}}}
+- Start Date: {{{startDate}}}
+- End Date: {{{endDate}}}
+- Preferences/Activities: {{{preferences}}}
 `,
 });
 
@@ -54,6 +55,9 @@ const generatePackingListFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('The AI failed to return a valid packing list. This may be due to safety filters or an internal error.');
+    }
+    return output;
   }
 );

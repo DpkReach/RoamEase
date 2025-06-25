@@ -14,6 +14,9 @@ export async function generatePackingList(
     return output;
   } catch (error) {
     console.error('Error generating packing list:', error);
-    throw new Error('Failed to communicate with the AI service.');
+    if (error instanceof Error) {
+        throw error;
+    }
+    throw new Error('An unknown error occurred while communicating with the AI service.');
   }
 }
