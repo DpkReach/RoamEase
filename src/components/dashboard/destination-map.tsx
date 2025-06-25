@@ -46,11 +46,51 @@ const mapStyles = [
 ];
 
 const destinations = [
-  { name: 'Paris, France', position: { lat: 48.8566, lng: 2.3522 }, hint: 'Eiffel tower' },
-  { name: 'Kyoto, Japan', position: { lat: 35.0116, lng: 135.7681 }, hint: 'temple shrine' },
-  { name: 'Cairo, Egypt', position: { lat: 30.0444, lng: 31.2357 }, hint: 'pyramids desert' },
-  { name: 'Rio de Janeiro, Brazil', position: { lat: -22.9068, lng: -43.1729 }, hint: 'Christ Redeemer' },
-  { name: 'Sydney, Australia', position: { lat: -33.8688, lng: 151.2093 }, hint: 'opera house' },
+    { name: 'Paris, France', position: { lat: 48.8566, lng: 2.3522 }, hint: 'Eiffel tower' },
+    { name: 'Nice, France', position: { lat: 43.7102, lng: 7.2620 }, hint: 'promenade beach' },
+    { name: 'Lyon, France', position: { lat: 45.7640, lng: 4.8357 }, hint: 'old town' },
+    { name: 'Kyoto, Japan', position: { lat: 35.0116, lng: 135.7681 }, hint: 'temple shrine' },
+    { name: 'Tokyo, Japan', position: { lat: 35.6895, lng: 139.6917 }, hint: 'city skyline' },
+    { name: 'Osaka, Japan', position: { lat: 34.6937, lng: 135.5023 }, hint: 'castle food' },
+    { name: 'Cairo, Egypt', position: { lat: 30.0444, lng: 31.2357 }, hint: 'pyramids desert' },
+    { name: 'Luxor, Egypt', position: { lat: 25.6872, lng: 32.6396 }, hint: 'ancient temples' },
+    { name: 'Alexandria, Egypt', position: { lat: 31.2001, lng: 29.9187 }, hint: 'library lighthouse' },
+    { name: 'Rio de Janeiro, Brazil', position: { lat: -22.9068, lng: -43.1729 }, hint: 'Christ Redeemer' },
+    { name: 'São Paulo, Brazil', position: { lat: -23.5505, lng: -46.6333 }, hint: 'metropolis art' },
+    { name: 'Salvador, Brazil', position: { lat: -12.9777, lng: -38.5016 }, hint: 'colonial architecture' },
+    { name: 'Sydney, Australia', position: { lat: -33.8688, lng: 151.2093 }, hint: 'opera house' },
+    { name: 'Melbourne, Australia', position: { lat: -37.8136, lng: 144.9631 }, hint: 'laneway coffee' },
+    { name: 'Brisbane, Australia', position: { lat: -27.4705, lng: 153.0260 }, hint: 'river city' },
+    { name: 'New York, USA', position: { lat: 40.7128, lng: -74.0060 }, hint: 'Statue Liberty' },
+    { name: 'Los Angeles, USA', position: { lat: 34.0522, lng: -118.2437 }, hint: 'Hollywood sign' },
+    { name: 'Chicago, USA', position: { lat: 41.8781, lng: -87.6298 }, hint: 'bean sculpture' },
+    { name: 'New Delhi, India', position: { lat: 28.6139, lng: 77.2090 }, hint: 'India Gate' },
+    { name: 'Mumbai, India', position: { lat: 19.0760, lng: 72.8777 }, hint: 'Gateway India' },
+    { name: 'Jaipur, India', position: { lat: 26.9124, lng: 75.7873 }, hint: 'pink palace' },
+    { name: 'Beijing, China', position: { lat: 39.9042, lng: 116.4074 }, hint: 'Forbidden City' },
+    { name: 'Shanghai, China', position: { lat: 31.2304, lng: 121.4737 }, hint: 'skyline Bund' },
+    { name: 'Xi\'an, China', position: { lat: 34.3416, lng: 108.9398 }, hint: 'terracotta army' },
+    { name: 'Rome, Italy', position: { lat: 41.9028, lng: 12.4964 }, hint: 'Colosseum ruins' },
+    { name: 'Florence, Italy', position: { lat: 43.7696, lng: 11.2558 }, hint: 'renaissance art' },
+    { name: 'Venice, Italy', position: { lat: 45.4408, lng: 12.3155 }, hint: 'gondola canals' },
+    { name: 'Madrid, Spain', position: { lat: 40.4168, lng: -3.7038 }, hint: 'royal palace' },
+    { name: 'Barcelona, Spain', position: { lat: 41.3851, lng: 2.1734 }, hint: 'Sagrada Familia' },
+    { name: 'Seville, Spain', position: { lat: 37.3891, lng: -5.9845 }, hint: 'flamenco dance' },
+    { name: 'Toronto, Canada', position: { lat: 43.6532, lng: -79.3832 }, hint: 'CN Tower' },
+    { name: 'Vancouver, Canada', position: { lat: 49.2827, lng: -123.1207 }, hint: 'mountain ocean' },
+    { name: 'Montreal, Canada', position: { lat: 45.5017, lng: -73.5673 }, hint: 'old city' },
+    { name: 'London, UK', position: { lat: 51.5074, lng: -0.1278 }, hint: 'Big Ben' },
+    { name: 'Edinburgh, UK', position: { lat: 55.9533, lng: -3.1883 }, hint: 'historic castle' },
+    { name: 'Manchester, UK', position: { lat: 53.4808, lng: -2.2426 }, hint: 'industrial city' },
+    { name: 'Cape Town, South Africa', position: { lat: -33.9249, lng: 18.4241 }, hint: 'Table Mountain' },
+    { name: 'Johannesburg, South Africa', position: { lat: -26.2041, lng: 28.0473 }, hint: 'city gold' },
+    { name: 'Durban, South Africa', position: { lat: -29.8587, lng: 31.0218 }, hint: 'beachfront promenade' },
+    { name: 'Buenos Aires, Argentina', position: { lat: -34.6037, lng: -58.3816 }, hint: 'tango dance' },
+    { name: 'Mendoza, Argentina', position: { lat: -32.8895, lng: -68.8458 }, hint: 'wine vineyards' },
+    { name: 'Bariloche, Argentina', position: { lat: -41.1335, lng: -71.3103 }, hint: 'lakes mountains' },
+    { name: 'Bangkok, Thailand', position: { lat: 13.7563, lng: 100.5018 }, hint: 'temples markets' },
+    { name: 'Chiang Mai, Thailand', position: { lat: 18.7883, lng: 98.9853 }, hint: 'elephants temples' },
+    { name: 'Phuket, Thailand', position: { lat: 7.8804, lng: 98.3923 }, hint: 'tropical beaches' },
 ];
 
 export default function DestinationMap() {
@@ -116,7 +156,7 @@ export default function DestinationMap() {
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={center}
-              zoom={3}
+              zoom={2}
               options={{ styles: mapStyles, disableDefaultUI: true, zoomControl: true, minZoom: 2, maxZoom: 15 }}
             >
               {destinations.map((dest) => (
