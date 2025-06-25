@@ -11,6 +11,7 @@ import { useState, useMemo } from 'react';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { Skeleton } from '../ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { useRouter } from 'next/navigation';
 
 const containerStyle = {
   width: '100%',
@@ -72,6 +73,7 @@ const destinations = [
 ];
 
 export default function DestinationMap() {
+  const router = useRouter();
   const [budget, setBudget] = useState(5000);
   const [selected, setSelected] = useState<(typeof destinations[0] | null)>(null);
 
@@ -81,6 +83,11 @@ export default function DestinationMap() {
   }), []);
 
   const { isLoaded, loadError } = useJsApiLoader(mapOptions);
+
+  const handleExplore = (destinationName: string) => {
+    const slug = destinationName.toLowerCase().replace(/, /g, '-').replace(/ /g, '-');
+    router.push(`/destinations/${slug}`);
+  };
 
   return (
     <Card className="w-full shadow-lg overflow-hidden">
@@ -166,7 +173,7 @@ export default function DestinationMap() {
                     <h4 className="font-semibold font-headline">{selected.name}</h4>
                     <Image src={`https://placehold.co/200x100.png`} alt={selected.name} width={200} height={100} className="rounded-md border" data-ai-hint={selected.hint} />
                     <p className="text-sm text-muted-foreground">Discover the beauty and culture of {selected.name}.</p>
-                    <Button size="sm" className="w-full">Explore Destination</Button>
+                    <Button size="sm" className="w-full" onClick={() => handleExplore(selected.name)}>Explore Destination</Button>
                   </div>
                 </InfoWindow>
               ) : null}
