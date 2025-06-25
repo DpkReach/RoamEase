@@ -12,7 +12,7 @@ interface CountryGuide extends GenerateCountryGuideOutput {
 }
 
 const countries = [
-  'France', 'Japan', 'Brazil', 'Egypt', 'Australia', 'Canada', 'Italy', 'India', 'Spain'
+  'France', 'Japan', 'Brazil'
 ];
 
 export default async function DashboardGrid() {
