@@ -58,14 +58,13 @@ export default function DestinationMap() {
             <Button className="w-full">Search</Button>
           </div>
         </div>
-        <div className="relative w-full h-[35rem] rounded-lg overflow-hidden border bg-background">
+        <div className="relative w-full aspect-video rounded-lg overflow-hidden border bg-background">
           <Image
             src="https://placehold.co/1200x700/EBF5FB/888888.png"
             alt="World Map"
-            layout="fill"
-            objectFit="cover"
+            fill
             data-ai-hint="stylized world map"
-            className="opacity-70"
+            className="object-cover opacity-70"
           />
           {destinations.map((dest) => (
             <Popover key={dest.name}>
