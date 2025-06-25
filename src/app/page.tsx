@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { onAuthStateChanged } from '@/services/auth';
 import { User } from 'firebase/auth';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -47,6 +48,8 @@ export default function DashboardPage() {
         setGuidesLoading(true);
         setError(null);
         try {
+          // In a real app, you might want to fetch a subset or cache this.
+          // Fetching all 9 every time can be slow.
           const guidePromises = countries.map(country => 
             generateCountryGuide({ country }).then(guide => ({ ...guide, country }))
           );
@@ -134,28 +137,30 @@ export default function DashboardPage() {
             ))
         ) : (
             guides.map((guide) => (
-                <Card key={guide.country} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <Image
-                        src={`https://placehold.co/600x400.png`}
-                        alt={`A scenic view of ${guide.country}`}
-                        width={600}
-                        height={400}
-                        className="w-full h-48 object-cover"
-                        data-ai-hint={guide.imageHint.toLowerCase()}
-                    />
-                    <CardHeader>
-                        <CardTitle className="font-headline text-2xl">{guide.country}</CardTitle>
-                        <CardDescription className="text-foreground/90 h-20 overflow-hidden">{guide.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                        <h4 className="font-semibold mb-2 flex items-center gap-2"><Pin className="h-4 w-4 text-primary" /> Must-see Attractions</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {guide.attractions.map(attraction => (
-                                <Badge key={attraction} variant="secondary">{attraction}</Badge>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
+                <Link href={`/destinations/${guide.country.toLowerCase().replace(/ /g, '-')}`} key={guide.country}>
+                    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full cursor-pointer">
+                        <Image
+                            src={`https://placehold.co/600x400.png`}
+                            alt={`A scenic view of ${guide.country}`}
+                            width={600}
+                            height={400}
+                            className="w-full h-48 object-cover"
+                            data-ai-hint={guide.imageHint.toLowerCase()}
+                        />
+                        <CardHeader>
+                            <CardTitle className="font-headline text-2xl">{guide.country}</CardTitle>
+                            <CardDescription className="text-foreground/90 h-20 overflow-hidden">{guide.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <h4 className="font-semibold mb-2 flex items-center gap-2"><Pin className="h-4 w-4 text-primary" /> Must-see Attractions</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {guide.attractions.map(attraction => (
+                                    <Badge key={attraction.name} variant="secondary">{attraction.name}</Badge>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Link>
             ))
         )}
       </div>
