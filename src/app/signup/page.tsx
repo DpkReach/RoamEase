@@ -10,16 +10,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PlaneTakeoff } from "lucide-react";
-import { signIn } from "@/services/auth";
+import { signUp } from "@/services/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(1, { message: "Password is required." }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 });
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -35,13 +35,13 @@ export default function LoginPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      await signIn(values.email, values.password);
+      await signUp(values.email, values.password);
       router.push("/");
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "Invalid login credentials.",
+        description: error.message,
       });
     } finally {
       setLoading(false);
@@ -56,8 +56,8 @@ export default function LoginPage() {
             <PlaneTakeoff className="h-10 w-10 text-primary" />
             <h1 className="text-4xl font-headline font-bold">WanderEase</h1>
           </div>
-          <CardTitle className="text-2xl font-headline">Log in</CardTitle>
-          <CardDescription>Enter your email below to login to your account</CardDescription>
+          <CardTitle className="text-2xl font-headline">Sign Up</CardTitle>
+          <CardDescription>Create your account to start planning</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -80,12 +80,7 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <div className="flex items-center">
-                      <FormLabel>Password</FormLabel>
-                      <Link href="#" className="ml-auto inline-block text-sm underline">
-                        Forgot your password?
-                      </Link>
-                    </div>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -94,14 +89,14 @@ export default function LoginPage() {
                 )}
               />
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Logging in..." : "Log in"}
+                {loading ? "Signing up..." : "Sign Up"}
               </Button>
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/login" className="underline">
+              Log in
             </Link>
           </div>
         </CardContent>
