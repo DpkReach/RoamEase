@@ -1,101 +1,107 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { onAuthStateChanged } from '@/services/auth';
-import { User } from 'firebase/auth';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Landmark, CheckCircle2, AlertCircle } from 'lucide-react';
-import { generateCountryGuides } from '@/app/actions';
-import type { CountryGuide } from '@/ai/flows/country-guide-generator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
+type DetailedAttraction = {
+  name: string;
+  description: string;
+  imageHint: string;
+};
+
+type CountryGuide = {
+  country: string;
+  description: string;
+  attractions: DetailedAttraction[];
+  whatToDo: string[];
+  imageHint: string;
+};
+
+const staticGuidesDetails: CountryGuide[] = [
+  {
+    country: 'France',
+    description: 'Experience the romance of Paris, the lavender fields of Provence, and the exquisite wines of Bordeaux. France is a country that has it all, from iconic landmarks to charming villages.',
+    attractions: [
+      { name: 'Eiffel Tower', description: 'The most iconic landmark in Paris, offering breathtaking views of the city. A symbol of French culture and a must-visit for any traveler.', imageHint: 'Eiffel Tower' },
+      { name: 'Louvre Museum', description: "Home to thousands of works of art, including the Mona Lisa and the Venus de Milo. It is the world's largest art museum and a historic monument.", imageHint: 'Louvre Museum' },
+      { name: 'Palace of Versailles', description: 'A former royal residence built by King Louis XIV. Explore the opulent Hall of Mirrors, the vast gardens, and the Grand Trianon.', imageHint: 'Palace Versailles' },
+    ],
+    whatToDo: [
+      'Indulge in a croissant from a local patisserie',
+      'Take a scenic boat tour on the Seine River',
+      'Explore the charming streets of Montmartre',
+      'Go wine tasting in the Bordeaux region'
+    ],
+    imageHint: 'Eiffel Tower',
+  },
+  {
+    country: 'Japan',
+    description: 'A fascinating country where ancient traditions meet futuristic technology. Explore serene temples, bustling cityscapes, and stunning natural landscapes.',
+    attractions: [
+      { name: 'Mount Fuji', description: "Japan's highest mountain and an active volcano. It's a symbol of the country and offers stunning views, especially during sunrise.", imageHint: 'Mount Fuji' },
+      { name: 'Kinkaku-ji', description: 'A stunning Zen Buddhist temple in Kyoto, also known as the Golden Pavilion. Its top two floors are completely covered in gold leaf.', imageHint: 'Kinkaku-ji temple' },
+      { name: 'Tokyo Skytree', description: 'A broadcasting and observation tower in Sumida, Tokyo. It is the tallest structure in Japan and offers panoramic views of the city.', imageHint: 'Tokyo Skytree' },
+    ],
+    whatToDo: [
+      'Experience a traditional tea ceremony',
+      'Ride the Shinkansen (bullet train)',
+      'Visit the historic temples of Kyoto',
+      'Enjoy fresh sushi at Tsukiji Fish Market'
+    ],
+    imageHint: 'Mount Fuji',
+  },
+  {
+    country: 'Brazil',
+    description: 'Home to the vibrant Carnival, the vast Amazon rainforest, and the iconic Christ the Redeemer statue. Brazil is a country of immense natural beauty and cultural diversity.',
+    attractions: [
+      { name: 'Christ the Redeemer', description: 'An Art Deco statue of Jesus Christ in Rio de Janeiro, located at the peak of Corcovado mountain. It offers spectacular views of the city.', imageHint: 'Christ Redeemer' },
+      { name: 'Iguazu Falls', description: 'A magnificent waterfall system on the border of Brazil and Argentina. It is one of the largest and most impressive waterfalls in the world.', imageHint: 'Iguazu Falls' },
+      { name: 'Sugarloaf Mountain', description: 'A peak situated in Rio de Janeiro, offering panoramic views of the city and its surrounding beaches, mountains, and forests.', imageHint: 'Sugarloaf Mountain' },
+    ],
+    whatToDo: [
+      'Relax on the famous Copacabana beach',
+      'Explore the Amazon rainforest on a guided tour',
+      'Experience the energy of the Carnival in Rio',
+      'Learn to dance samba'
+    ],
+    imageHint: 'Christ Redeemer',
+  },
+];
 
 export default function DestinationDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [guide, setGuide] = useState<CountryGuide | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
+  
   const slug = params.slug as string;
-  const destinationName = slug
-    ? slug
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
-    : 'Destination';
+  const guide = staticGuidesDetails.find(
+    (g) => g.country.toLowerCase().replace(/ /g, '-') === slug
+  );
+  
+  const destinationName = guide ? guide.country : slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged((user) => {
-      if (!user) {
-        router.push('/login');
-      } else {
-        setUser(user);
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
-
-  useEffect(() => {
-    if (user && destinationName !== 'Destination') {
-      const fetchGuide = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const result = await generateCountryGuides({ countries: [destinationName] });
-          if (result.guides && result.guides.length > 0) {
-            setGuide(result.guides[0]);
-          } else {
-            throw new Error(`Could not find a travel guide for ${destinationName}.`);
-          }
-        } catch (e: any) {
-          setError(e.message || 'An unknown error occurred while fetching the destination guide.');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchGuide();
-    }
-  }, [user, destinationName]);
-
-  if (loading || !guide) {
+  if (!guide) {
     return (
       <div className="space-y-8">
-        <Skeleton className="h-8 w-48" />
-        <div className="space-y-4">
-          <Skeleton className="h-64 w-full rounded-lg" />
-          <Skeleton className="h-24 w-full" />
-        </div>
-        <div className="space-y-4">
-          <Skeleton className="h-8 w-64 mb-4" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Skeleton className="h-80 w-full" />
-            <Skeleton className="h-80 w-full" />
-            <Skeleton className="h-80 w-full" />
-          </div>
-        </div>
+        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Dashboard
+        </Button>
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Destination Not Found</AlertTitle>
+          <AlertDescription>
+            The travel guide for "{destinationName}" is not available.
+          </AlertDescription>
+        </Alert>
       </div>
     );
-  }
-
-  if (error) {
-    return (
-        <div className="space-y-8">
-             <Button variant="ghost" onClick={() => router.back()} className="mb-4">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Dashboard
-            </Button>
-            <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Failed to load destination</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-            </Alert>
-        </div>
-    )
   }
 
   return (
