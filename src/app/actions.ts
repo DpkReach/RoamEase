@@ -2,19 +2,19 @@
 
 import { cache } from 'react';
 import {
-  generateCountryGuide as generateCountryGuideFlow,
-  type GenerateCountryGuideInput,
-  type GenerateCountryGuideOutput,
+  generateCountryGuides as generateCountryGuidesFlow,
+  type GenerateCountryGuidesInput,
+  type GenerateCountryGuidesOutput,
 } from '@/ai/flows/country-guide-generator';
 
-async function _generateCountryGuide(
-  input: GenerateCountryGuideInput
-): Promise<GenerateCountryGuideOutput> {
+async function _generateCountryGuides(
+  input: GenerateCountryGuidesInput
+): Promise<GenerateCountryGuidesOutput> {
   try {
-    const output = await generateCountryGuideFlow(input);
+    const output = await generateCountryGuidesFlow(input);
     return output;
   } catch (error) {
-    console.error('Error generating country guide:', error);
+    console.error('Error generating country guides:', error);
     if (error instanceof Error) {
         throw error;
     }
@@ -22,4 +22,4 @@ async function _generateCountryGuide(
   }
 }
 
-export const generateCountryGuide = cache(_generateCountryGuide);
+export const generateCountryGuides = cache(_generateCountryGuides);

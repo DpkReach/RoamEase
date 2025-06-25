@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Landmark, CheckCircle2, AlertCircle } from 'lucide-react';
-import { generateCountryGuide } from '@/app/actions';
-import type { GenerateCountryGuideOutput } from '@/ai/flows/country-guide-generator';
+import { generateCountryGuides } from '@/app/actions';
+import type { CountryGuide } from '@/ai/flows/country-guide-generator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function DestinationDetailPage() {
@@ -18,7 +18,7 @@ export default function DestinationDetailPage() {
   const params = useParams();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [guide, setGuide] = useState<GenerateCountryGuideOutput | null>(null);
+  const [guide, setGuide] = useState<CountryGuide | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const slug = params.slug as string;
@@ -46,8 +46,12 @@ export default function DestinationDetailPage() {
         setLoading(true);
         setError(null);
         try {
-          const result = await generateCountryGuide({ country: destinationName });
-          setGuide(result);
+          const result = await generateCountryGuides({ countries: [destinationName] });
+          if (result.guides && result.guides.length > 0) {
+            setGuide(result.guides[0]);
+          } else {
+            throw new Error(`Could not find a travel guide for ${destinationName}.`);
+          }
         } catch (e: any) {
           setError(e.message || 'An unknown error occurred while fetching the destination guide.');
         } finally {

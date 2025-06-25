@@ -1,15 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { generateCountryGuide } from '@/app/actions';
-import type { GenerateCountryGuideOutput } from '@/ai/flows/country-guide-generator';
+import { generateCountryGuides } from '@/app/actions';
+import type { CountryGuide } from '@/ai/flows/country-guide-generator';
 import { AlertCircle, Pin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-
-interface CountryGuide extends GenerateCountryGuideOutput {
-  country: string;
-}
 
 const countries = [
   'France', 'Japan', 'Brazil'
@@ -20,10 +16,8 @@ export default async function DashboardGrid() {
   let error: string | null = null;
 
   try {
-    const guidePromises = countries.map(country => 
-      generateCountryGuide({ country }).then(guide => ({ ...guide, country }))
-    );
-    guides = await Promise.all(guidePromises);
+    const result = await generateCountryGuides({ countries });
+    guides = result.guides;
   } catch (err) {
     if (err instanceof Error) {
         error = `Failed to fetch travel guides. ${err.message}`;
