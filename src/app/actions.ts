@@ -1,12 +1,13 @@
 'use server';
 
+import { cache } from 'react';
 import {
   generateCountryGuide as generateCountryGuideFlow,
   type GenerateCountryGuideInput,
   type GenerateCountryGuideOutput,
 } from '@/ai/flows/country-guide-generator';
 
-export async function generateCountryGuide(
+async function _generateCountryGuide(
   input: GenerateCountryGuideInput
 ): Promise<GenerateCountryGuideOutput> {
   try {
@@ -20,3 +21,5 @@ export async function generateCountryGuide(
     throw new Error('An unknown error occurred while communicating with the AI service.');
   }
 }
+
+export const generateCountryGuide = cache(_generateCountryGuide);
