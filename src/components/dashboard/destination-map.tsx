@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Building, Waves, Mountain, Pin, AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { Skeleton } from '../ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
@@ -57,10 +57,12 @@ export default function DestinationMap() {
   const [budget, setBudget] = useState(5000);
   const [selected, setSelected] = useState<(typeof destinations[0] | null)>(null);
 
-  const { isLoaded, loadError } = useJsApiLoader({
+  const mapOptions = useMemo(() => ({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
-  });
+  }), []);
+
+  const { isLoaded, loadError } = useJsApiLoader(mapOptions);
 
   return (
     <Card className="w-full shadow-lg overflow-hidden">
