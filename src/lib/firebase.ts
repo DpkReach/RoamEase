@@ -13,17 +13,21 @@ const firebaseConfig = {
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
+let isFirebaseConfigured = false;
 
-if (firebaseConfig.apiKey && firebaseConfig.apiKey !== 'your-api-key') {
+if (firebaseConfig.apiKey && firebaseConfig.apiKey !== 'your-api-key' && firebaseConfig.projectId) {
   try {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
+    isFirebaseConfigured = true;
   } catch (error) {
     console.error("Firebase initialization failed:", error);
+    isFirebaseConfigured = false;
   }
 } else {
   console.info("Firebase is not configured. Authentication and other Firebase services will not be available.");
+  isFirebaseConfigured = false;
 }
 
 
-export { app, auth };
+export { app, auth, isFirebaseConfigured };
