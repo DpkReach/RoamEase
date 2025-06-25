@@ -7,6 +7,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ArrowRightLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 
+const currencies = [
+  { value: 'USD', label: 'USD - US Dollar' },
+  { value: 'EUR', label: 'EUR - Euro' },
+  { value: 'JPY', label: 'JPY - Japanese Yen' },
+  { value: 'GBP', label: 'GBP - British Pound' },
+  { value: 'AUD', label: 'AUD - Australian Dollar' },
+  { value: 'CAD', label: 'CAD - Canadian Dollar' },
+  { value: 'CHF', label: 'CHF - Swiss Franc' },
+  { value: 'CNY', label: 'CNY - Chinese Yuan Renminbi' },
+  { value: 'INR', label: 'INR - Indian Rupee' },
+  { value: 'BRL', label: 'BRL - Brazilian Real' },
+  { value: 'ZAR', label: 'ZAR - South African Rand' },
+  { value: 'MXN', label: 'MXN - Mexican Peso' },
+  { value: 'NZD', label: 'NZD - New Zealand Dollar' },
+  { value: 'SGD', label: 'SGD - Singapore Dollar' },
+];
+
 export default function CurrencyConverter() {
   const [fromCurrency, setFromCurrency] = useState('USD');
   const [toCurrency, setToCurrency] = useState('EUR');
@@ -44,10 +61,11 @@ export default function CurrencyConverter() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="USD">USD - US Dollar</SelectItem>
-                <SelectItem value="EUR">EUR - Euro</SelectItem>
-                <SelectItem value="JPY">JPY - Japanese Yen</SelectItem>
-                <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.value} value={currency.value}>
+                    {currency.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -62,10 +80,11 @@ export default function CurrencyConverter() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="USD">USD - US Dollar</SelectItem>
-                <SelectItem value="EUR">EUR - Euro</SelectItem>
-                <SelectItem value="JPY">JPY - Japanese Yen</SelectItem>
-                <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.value} value={currency.value}>
+                    {currency.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
