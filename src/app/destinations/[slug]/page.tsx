@@ -15,6 +15,7 @@ type DetailedAttraction = {
 
 type CountryGuide = {
   country: string;
+  slug: string;
   description: string;
   attractions: DetailedAttraction[];
   whatToDo: string[];
@@ -24,6 +25,7 @@ type CountryGuide = {
 const staticGuidesDetails: CountryGuide[] = [
   {
     country: 'France',
+    slug: 'france',
     description: 'Experience the romance of Paris, the lavender fields of Provence, and the exquisite wines of Bordeaux. France is a country that has it all, from iconic landmarks to charming villages.',
     attractions: [
       { name: 'Eiffel Tower', description: 'The most iconic landmark in Paris, offering breathtaking views of the city. A symbol of French culture and a must-visit for any traveler.', imageHint: 'Eiffel Tower' },
@@ -40,6 +42,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Japan',
+    slug: 'japan',
     description: 'A fascinating country where ancient traditions meet futuristic technology. Explore serene temples, bustling cityscapes, and stunning natural landscapes.',
     attractions: [
       { name: 'Mount Fuji', description: "Japan's highest mountain and an active volcano. It's a symbol of the country and offers stunning views, especially during sunrise.", imageHint: 'Mount Fuji' },
@@ -56,6 +59,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Brazil',
+    slug: 'brazil',
     description: 'Home to the vibrant Carnival, the vast Amazon rainforest, and the iconic Christ the Redeemer statue. Brazil is a country of immense natural beauty and cultural diversity.',
     attractions: [
       { name: 'Christ the Redeemer', description: 'An Art Deco statue of Jesus Christ in Rio de Janeiro, located at the peak of Corcovado mountain. It offers spectacular views of the city.', imageHint: 'Christ Redeemer' },
@@ -72,6 +76,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Italy',
+    slug: 'italy',
     description: 'From the ancient ruins of Rome to the rolling vineyards of Tuscany and the romantic canals of Venice, Italy offers a journey through history, art, and culinary excellence. It is a country that captivates the senses and inspires the soul.',
     attractions: [
       { name: 'Colosseum', description: 'The largest ancient amphitheatre ever built, this iconic symbol of Imperial Rome once hosted gladiatorial contests and public spectacles. A must-see for its historical significance and architectural grandeur.', imageHint: 'Colosseum Rome' },
@@ -88,6 +93,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'India',
+    slug: 'india',
     description: 'A land of incredible diversity, from the snow-capped Himalayas to the tropical beaches of the south. India is a whirlwind for the senses, with vibrant festivals, spicy cuisine, and architectural wonders.',
     attractions: [
       { name: 'Taj Mahal', description: "An immense mausoleum of white marble, built in Agra between 1631 and 1648 by order of the Mughal emperor Shah Jahan in memory of his favourite wife. It is the jewel of Muslim art in India.", imageHint: 'Taj Mahal' },
@@ -104,6 +110,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'China',
+    slug: 'china',
     description: 'A country of epic proportions, where ancient history and cutting-edge technology coexist. From the Great Wall to the Forbidden City, China offers a journey through millennia of dynasties and modern ambition.',
     attractions: [
       { name: 'Great Wall of China', description: "One of the most iconic man-made structures on Earth, this series of fortifications stretches for thousands of miles. Walk along a section to appreciate its scale and historical importance.", imageHint: 'Great Wall' },
@@ -120,6 +127,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Peru',
+    slug: 'peru',
     description: 'A country rich in archaeological heritage and biodiversity. Peru is home to the ancient Inca citadel of Machu Picchu, the mysterious Nazca Lines, and a portion of the vast Amazon rainforest.',
     attractions: [
       { name: 'Machu Picchu', description: 'An Incan citadel set high in the Andes Mountains. This UNESCO World Heritage site is renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, and its breathtaking panoramic views.', imageHint: 'Machu Picchu' },
@@ -136,6 +144,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Mexico',
+    slug: 'mexico',
     description: 'A land of contrasts, from sun-drenched beaches to dense jungles and ancient ruins. Mexico\'s rich history, vibrant culture, and delicious cuisine make it a captivating destination for all types of travelers.',
     attractions: [
       { name: 'Chichen Itza', description: 'A large pre-Columbian city built by the Maya people. The iconic step-pyramid known as El Castillo is a testament to the Maya\'s astronomical skills.', imageHint: 'Chichen Itza' },
@@ -152,6 +161,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Jordan',
+    slug: 'jordan',
     description: 'A kingdom steeped in history, Jordan is home to the ancient Nabatean city of Petra, the vast desert landscapes of Wadi Rum, and the salty waters of the Dead Sea.',
     attractions: [
       { name: 'Petra', description: 'A famous archaeological site in Jordan\'s southwestern desert. Dating to around 300 B.C., it was the capital of the Nabatean Kingdom. Accessed via a narrow canyon called Al Siq, it contains tombs and temples carved into pink sandstone cliffs.', imageHint: 'Petra Jordan' },
@@ -168,6 +178,7 @@ const staticGuidesDetails: CountryGuide[] = [
   },
   {
     country: 'Egypt',
+    slug: 'egypt',
     description: 'The cradle of civilization, Egypt beckons with its mighty pyramids, ancient tombs, and the life-giving Nile River. A journey through Egypt is a journey through thousands of years of history.',
     attractions: [
       { name: 'Pyramids of Giza', description: 'The last surviving of the Seven Wonders of the Ancient World, these monumental tombs are a testament to the power and engineering prowess of the ancient Egyptian pharaohs.', imageHint: 'Pyramids Giza' },
@@ -182,6 +193,125 @@ const staticGuidesDetails: CountryGuide[] = [
     ],
     imageHint: 'Pyramids Giza',
   },
+  {
+    country: 'Great Wall of China',
+    slug: 'great-wall-of-china',
+    description: 'A series of fortifications that were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups. It is the longest wall in the world.',
+    attractions: [
+      { name: 'Mutianyu', description: 'A well-preserved section of the Great Wall with magnificent views, less crowded than other sections.', imageHint: 'Mutianyu Great Wall' },
+      { name: 'Jinshanling', description: 'Known for its stunning and diverse watchtowers, this section offers a challenging hike with breathtaking scenery.', imageHint: 'Jinshanling Great Wall' },
+      { name: 'Badaling', description: 'The most visited section of the Great Wall, it was the first to be opened to the public and is highly accessible.', imageHint: 'Badaling Great Wall' }
+    ],
+    whatToDo: [
+      'Hike along the wall for spectacular views',
+      'Take a cable car or chairlift up',
+      'Toboggan down from the wall',
+      'Learn about its history at the Great Wall Museum'
+    ],
+    imageHint: 'Great Wall'
+  },
+  {
+    country: 'Petra',
+    slug: 'petra',
+    description: 'This ancient city of red-rose stone, half-built, half-carved into the rock, is a breathtaking historical site and a testament to the ingenuity of the Nabataean civilization.',
+    attractions: [
+      { name: 'The Treasury (Al-Khazneh)', description: 'The iconic facade of Petra, famously featured in movies. It is believed to have been a mausoleum for a Nabataean king.', imageHint: 'Petra Treasury' },
+      { name: 'The Monastery (Ad-Deir)', description: 'A massive structure carved out of a mountaintop, requiring a hike to reach but offering stunning views.', imageHint: 'Petra Monastery' },
+      { name: 'The Siq', description: 'The narrow, winding canyon that serves as the dramatic entrance to the city of Petra, revealing the Treasury at its end.', imageHint: 'Petra Siq' }
+    ],
+    whatToDo: [
+      'Hike to the High Place of Sacrifice',
+      'Explore the Street of Facades',
+      'Visit the Petra by Night show',
+      'Discover the Great Temple'
+    ],
+    imageHint: 'Petra Jordan'
+  },
+  {
+    country: 'Christ the Redeemer',
+    slug: 'christ-the-redeemer',
+    description: 'An Art Deco statue of Jesus Christ in Rio de Janeiro, Brazil. The statue is a symbol of Christianity across the world and a cultural icon of both Rio de Janeiro and Brazil.',
+    attractions: [
+      { name: 'Statue Viewpoint', description: 'Stand at the feet of the colossal statue and enjoy panoramic views of Rio de Janeiro, including Sugarloaf Mountain and Copacabana beach.', imageHint: 'Christ Redeemer statue' },
+      { name: 'Corcovado Train', description: 'A scenic cogwheel train ride that takes you through the Tijuca National Park to the summit of Corcovado Mountain.', imageHint: 'Corcovado train' },
+      { name: 'Tijuca National Park', description: 'The urban rainforest surrounding Christ the Redeemer, offering hiking trails, waterfalls, and diverse wildlife.', imageHint: 'Tijuca rainforest' }
+    ],
+    whatToDo: [
+      'Take a helicopter tour for an aerial view',
+      'Visit the chapel at the base of the statue',
+      'Hike one of the trails in Tijuca Forest',
+      'Enjoy a coffee at the mountaintop cafe'
+    ],
+    imageHint: 'Christ Redeemer'
+  },
+  {
+    country: 'Machu Picchu',
+    slug: 'machu-picchu',
+    description: 'This Incan citadel from the 15th century is perched high in the Andes Mountains of Peru. It is renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar.',
+    attractions: [
+      { name: 'Intihuatana Stone', description: 'A ritual stone associated with the astronomic clock or calendar of the Inca, a masterpiece of sacred geometry.', imageHint: 'Intihuatana stone' },
+      { name: 'Temple of the Sun', description: 'A semi-circular temple built around a large granite rock, used for astronomical observations and religious ceremonies.', imageHint: 'Temple of Sun' },
+      { name: 'Huayna Picchu', description: 'The steep mountain that rises over Machu Picchu, offering a challenging hike and breathtaking views of the ruins from above.', imageHint: 'Huayna Picchu' }
+    ],
+    whatToDo: [
+      'Watch the sunrise over the ruins',
+      'Hike to the Sun Gate (Inti Punku)',
+      'Cross the Inca Bridge',
+      'Get your passport stamped with a unique Machu Picchu stamp'
+    ],
+    imageHint: 'Machu Picchu'
+  },
+  {
+    country: 'Colosseum',
+    slug: 'colosseum',
+    description: 'Located in the center of Rome, Italy, the Colosseum is the largest ancient amphitheater ever built. It is an iconic symbol of Imperial Rome and its gladiatorial contests.',
+    attractions: [
+      { name: 'The Arena Floor', description: 'Stand where gladiators once fought and get a unique perspective of the amphitheater\'s immense scale.', imageHint: 'Colosseum arena' },
+      { name: 'The Underground (Hypogeum)', description: 'Explore the network of tunnels and chambers where gladiators and animals were held before contests.', imageHint: 'Colosseum underground' },
+      { name: 'The Roman Forum', description: 'Adjacent to the Colosseum, this plaza was the center of day-to-day life in ancient Rome, surrounded by the ruins of important government buildings.', imageHint: 'Roman Forum' }
+    ],
+    whatToDo: [
+      'Take a guided tour to learn its history',
+      'Visit at night for a different perspective',
+      'Climb Palatine Hill for views of the Forum and Colosseum',
+      'Toss a coin in the nearby Trevi Fountain'
+    ],
+    imageHint: 'Colosseum Rome'
+  },
+  {
+    country: 'Chichen Itza',
+    slug: 'chichen-itza',
+    description: 'A vast complex of Mayan ruins on Mexico\'s Yucatán Peninsula. A massive step-pyramid, known as El Castillo or Temple of Kukulcan, dominates the ancient city.',
+    attractions: [
+      { name: 'El Castillo (Temple of Kukulcan)', description: 'The iconic pyramid at the heart of Chichen Itza, engineered to align with the solar equinoxes.', imageHint: 'El Castillo pyramid' },
+      { name: 'The Great Ball Court', description: 'The largest and best-preserved ancient ball court in the Americas, known for its remarkable acoustics.', imageHint: 'Chichen Itza ball court' },
+      { name: 'The Sacred Cenote', description: 'A large natural well that was a site of pilgrimage for the ancient Maya people, who conducted sacrifices here.', imageHint: 'Sacred Cenote' }
+    ],
+    whatToDo: [
+      'Witness the light-and-shadow serpent during the equinox',
+      'Explore the Temple of the Warriors',
+      'Swim in a nearby cenote like Ik Kil',
+      'Visit the El Caracol observatory'
+    ],
+    imageHint: 'Chichen Itza'
+  },
+  {
+    country: 'Taj Mahal',
+    slug: 'taj-mahal',
+    description: 'An immense mausoleum of ivory-white marble in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favorite wife, Mumtaz Mahal.',
+    attractions: [
+      { name: 'The Main Mausoleum', description: 'The central focus of the complex, featuring the iconic dome and minarets. Its white marble is inlaid with semi-precious stones.', imageHint: 'Taj Mahal mausoleum' },
+      { name: 'The Reflecting Pool', description: 'The long water channel in front of the mausoleum that creates the famous, perfectly symmetrical reflection of the structure.', imageHint: 'Taj Mahal reflection' },
+      { name: 'The Gardens of Paradise (Charbagh)', description: 'The beautiful Persian-style gardens that surround the mausoleum, symbolizing paradise.', imageHint: 'Taj Mahal garden' }
+    ],
+    whatToDo: [
+      'Visit at sunrise or sunset for the best light',
+      'Take a boat ride on the Yamuna River for a different view',
+      'Explore the red sandstone mosque and guesthouse',
+      'Visit the nearby Agra Fort'
+    ],
+    imageHint: 'Taj Mahal'
+  },
 ];
 
 export default function DestinationDetailPage() {
@@ -190,7 +320,7 @@ export default function DestinationDetailPage() {
   
   const slug = params.slug as string;
   const guide = staticGuidesDetails.find(
-    (g) => g.country.toLowerCase().replace(/ /g, '-') === slug
+    (g) => g.slug === slug
   );
   
   const destinationName = guide ? guide.country : slug
