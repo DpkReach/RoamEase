@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pin } from 'lucide-react';
@@ -133,13 +132,14 @@ export default function DashboardGrid() {
       {staticGuides.map((guide) => (
         <Link href={`/destinations/${guide.slug}`} key={guide.slug}>
           <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full cursor-pointer">
-            <Image
+            <img
               src="https://placehold.co/600x400.png"
               data-ai-hint={guide.imageHint}
               alt={`A scenic view of ${guide.country}`}
-              width={600}
-              height={400}
+              width="600"
+              height="400"
               className="w-full h-48 object-cover"
+              loading="lazy"
             />
             <CardHeader>
               <CardTitle className="font-headline text-2xl">{guide.country}</CardTitle>
