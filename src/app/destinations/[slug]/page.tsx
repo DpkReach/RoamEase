@@ -359,12 +359,11 @@ export default function DestinationDetailPage() {
       <div className="space-y-12">
         <Card className="overflow-hidden shadow-lg border-0">
             <Image
-                src={`https://placehold.co/1200x400.png`}
+                src={`https://source.unsplash.com/featured/1200x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
                 alt={`Scenic view of ${destinationName}`}
                 width={1200}
                 height={400}
                 className="w-full h-64 object-cover rounded-lg"
-                data-ai-hint={guide.imageHint.toLowerCase()}
             />
             <CardContent className="p-0 pt-6">
                 <p className="text-foreground/90 leading-relaxed">{guide.description}</p>
@@ -380,12 +379,11 @@ export default function DestinationDetailPage() {
                 {guide.attractions.map(attraction => (
                     <Card key={attraction.name} className="flex flex-col">
                         <Image
-                            src={`https://placehold.co/600x400.png`}
+                            src={`https://source.unsplash.com/featured/600x400/?${attraction.imageHint.toLowerCase().replace(/ /g, ',')}`}
                             alt={`View of ${attraction.name}`}
                             width={600}
                             height={400}
                             className="w-full h-48 object-cover rounded-t-lg"
-                            data-ai-hint={attraction.imageHint.toLowerCase()}
                         />
                          <CardHeader>
                             <CardTitle className="font-headline text-xl">{attraction.name}</CardTitle>

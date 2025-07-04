@@ -141,7 +141,7 @@ export default function DestinationMap() {
                 >
                   <div className="space-y-3 p-2 w-60">
                     <h4 className="font-semibold font-headline">{selected.name}</h4>
-                    <Image src={`https://placehold.co/200x100.png`} alt={selected.name} width={200} height={100} className="rounded-md border" data-ai-hint={selected.hint} />
+                    <Image src={`https://source.unsplash.com/featured/200x100/?${selected.hint.replace(/ /g, ',')}`} alt={selected.name} width={200} height={100} className="rounded-md border" />
                     <p className="text-sm text-muted-foreground">Discover the beauty and culture of {selected.name.split(',')[0]}.</p>
                     <Button size="sm" className="w-full" onClick={() => handleExplore(selected.slug)}>Explore Destination</Button>
                   </div>

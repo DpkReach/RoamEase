@@ -131,15 +131,14 @@ export default function DashboardGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {staticGuides.map((guide) => (
-        <Link href={`/destinations/${guide.slug}`} key={guide.country}>
+        <Link href={`/destinations/${guide.slug}`} key={guide.slug}>
           <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full cursor-pointer">
             <Image
-              src={`https://placehold.co/600x400.png`}
+              src={`https://source.unsplash.com/featured/600x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
               alt={`A scenic view of ${guide.country}`}
               width={600}
               height={400}
               className="w-full h-48 object-cover"
-              data-ai-hint={guide.imageHint.toLowerCase()}
             />
             <CardHeader>
               <CardTitle className="font-headline text-2xl">{guide.country}</CardTitle>
