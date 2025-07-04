@@ -134,7 +134,8 @@ export default function DashboardGrid() {
         <Link href={`/destinations/${guide.slug}`} key={guide.slug}>
           <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full cursor-pointer">
             <Image
-              src={`https://source.unsplash.com/random/600x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
+              src="https://placehold.co/600x400.png"
+              data-ai-hint={guide.imageHint}
               alt={`A scenic view of ${guide.country}`}
               width={600}
               height={400}

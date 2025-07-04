@@ -359,7 +359,8 @@ export default function DestinationDetailPage() {
       <div className="space-y-12">
         <Card className="overflow-hidden shadow-lg border-0">
             <Image
-                src={`https://source.unsplash.com/random/1200x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
+                src="https://placehold.co/1200x400.png"
+                data-ai-hint={guide.imageHint}
                 alt={`Scenic view of ${destinationName}`}
                 width={1200}
                 height={400}
@@ -379,7 +380,8 @@ export default function DestinationDetailPage() {
                 {guide.attractions.map(attraction => (
                     <Card key={attraction.name} className="flex flex-col">
                         <Image
-                            src={`https://source.unsplash.com/random/600x400/?${attraction.imageHint.toLowerCase().replace(/ /g, ',')}`}
+                            src="https://placehold.co/600x400.png"
+                            data-ai-hint={attraction.imageHint}
                             alt={`View of ${attraction.name}`}
                             width={600}
                             height={400}
