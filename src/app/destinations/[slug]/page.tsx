@@ -208,7 +208,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Toboggan down from the wall',
       'Learn about its history at the Great Wall Museum'
     ],
-    imageHint: 'Great Wall'
+    imageHint: 'Great Wall',
   },
   {
     country: 'Petra',
@@ -225,7 +225,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Visit the Petra by Night show',
       'Discover the Great Temple'
     ],
-    imageHint: 'Petra Jordan'
+    imageHint: 'Petra Jordan',
   },
   {
     country: 'Christ the Redeemer',
@@ -242,7 +242,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Hike one of the trails in Tijuca Forest',
       'Enjoy a coffee at the mountaintop cafe'
     ],
-    imageHint: 'Christ Redeemer'
+    imageHint: 'Christ Redeemer',
   },
   {
     country: 'Machu Picchu',
@@ -259,7 +259,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Cross the Inca Bridge',
       'Get your passport stamped with a unique Machu Picchu stamp'
     ],
-    imageHint: 'Machu Picchu'
+    imageHint: 'Machu Picchu',
   },
   {
     country: 'Colosseum',
@@ -276,7 +276,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Climb Palatine Hill for views of the Forum and Colosseum',
       'Toss a coin in the nearby Trevi Fountain'
     ],
-    imageHint: 'Colosseum Rome'
+    imageHint: 'Colosseum Rome',
   },
   {
     country: 'Chichen Itza',
@@ -293,7 +293,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Swim in a nearby cenote like Ik Kil',
       'Visit the El Caracol observatory'
     ],
-    imageHint: 'Chichen Itza'
+    imageHint: 'Chichen Itza',
   },
   {
     country: 'Taj Mahal',
@@ -310,7 +310,7 @@ const staticGuidesDetails: CountryGuide[] = [
       'Explore the red sandstone mosque and guesthouse',
       'Visit the nearby Agra Fort'
     ],
-    imageHint: 'Taj Mahal'
+    imageHint: 'Taj Mahal',
   },
 ];
 
@@ -359,7 +359,7 @@ export default function DestinationDetailPage() {
       <div className="space-y-12">
         <Card className="overflow-hidden shadow-lg border-0">
             <Image
-                src={`https://source.unsplash.com/featured/1200x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
+                src={`https://source.unsplash.com/random/1200x400/?${guide.imageHint.toLowerCase().replace(/ /g, ',')}`}
                 alt={`Scenic view of ${destinationName}`}
                 width={1200}
                 height={400}
@@ -379,7 +379,7 @@ export default function DestinationDetailPage() {
                 {guide.attractions.map(attraction => (
                     <Card key={attraction.name} className="flex flex-col">
                         <Image
-                            src={`https://source.unsplash.com/featured/600x400/?${attraction.imageHint.toLowerCase().replace(/ /g, ',')}`}
+                            src={`https://source.unsplash.com/random/600x400/?${attraction.imageHint.toLowerCase().replace(/ /g, ',')}`}
                             alt={`View of ${attraction.name}`}
                             width={600}
                             height={400}
