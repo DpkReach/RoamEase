@@ -31,7 +31,7 @@ const destinations = [
     { name: 'Kyoto, Japan', position: { lat: 35.0116, lng: 135.7681 }, hint: 'temple shrine' },
     { name: 'Tokyo, Japan', position: { lat: 35.6895, lng: 139.6917 }, hint: 'city skyline' },
     { name: 'Osaka, Japan', position: { lat: 34.6937, lng: 135.5023 }, hint: 'castle food' },
-    { name: 'Cairo, Egypt', position: { lat: 30.0444, lng: 31.2357 }, hint: 'pyramids desert' },
+    { name: 'Giza, Egypt', position: { lat: 29.9792, lng: 31.1342 }, hint: 'great pyramids' },
     { name: 'Luxor, Egypt', position: { lat: 25.6872, lng: 32.6396 }, hint: 'ancient temples' },
     { name: 'Alexandria, Egypt', position: { lat: 31.2001, lng: 29.9187 }, hint: 'library lighthouse' },
     { name: 'Rio de Janeiro, Brazil', position: { lat: -22.9068, lng: -43.1729 }, hint: 'Christ Redeemer' },
@@ -43,7 +43,7 @@ const destinations = [
     { name: 'New York, USA', position: { lat: 40.7128, lng: -74.0060 }, hint: 'Statue Liberty' },
     { name: 'Los Angeles, USA', position: { lat: 34.0522, lng: -118.2437 }, hint: 'Hollywood sign' },
     { name: 'Chicago, USA', position: { lat: 41.8781, lng: -87.6298 }, hint: 'bean sculpture' },
-    { name: 'New Delhi, India', position: { lat: 28.6139, lng: 77.2090 }, hint: 'India Gate' },
+    { name: 'Agra, India', position: { lat: 27.1751, lng: 78.0421 }, hint: 'Taj Mahal' },
     { name: 'Mumbai, India', position: { lat: 19.0760, lng: 72.8777 }, hint: 'Gateway India' },
     { name: 'Jaipur, India', position: { lat: 26.9124, lng: 75.7873 }, hint: 'pink palace' },
     { name: 'Beijing, China', position: { lat: 39.9042, lng: 116.4074 }, hint: 'Forbidden City' },
@@ -70,6 +70,12 @@ const destinations = [
     { name: 'Bangkok, Thailand', position: { lat: 13.7563, lng: 100.5018 }, hint: 'temples markets' },
     { name: 'Chiang Mai, Thailand', position: { lat: 18.7883, lng: 98.9853 }, hint: 'elephants temples' },
     { name: 'Phuket, Thailand', position: { lat: 7.8804, lng: 98.3923 }, hint: 'tropical beaches' },
+    { name: 'Machu Picchu, Peru', position: { lat: -13.1631, lng: -72.5450 }, hint: 'inca citadel' },
+    { name: 'Cusco, Peru', position: { lat: -13.5319, lng: -71.9675 }, hint: 'inca capital' },
+    { name: 'Chichen Itza, Mexico', position: { lat: 20.6843, lng: -88.5678 }, hint: 'mayan pyramid' },
+    { name: 'Cancun, Mexico', position: { lat: 21.1619, lng: -86.8515 }, hint: 'beaches ruins' },
+    { name: 'Petra, Jordan', position: { lat: 30.3285, lng: 35.4444 }, hint: 'rose city' },
+    { name: 'Wadi Rum, Jordan', position: { lat: 29.5733, lng: 35.4214 }, hint: 'desert landscape' },
 ];
 
 export default function DestinationMap() {

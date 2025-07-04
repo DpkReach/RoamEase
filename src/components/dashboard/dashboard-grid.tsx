@@ -35,6 +35,48 @@ const staticGuides = [
     ],
     imageHint: 'Christ Redeemer',
   },
+  {
+    country: 'Italy',
+    description: 'Explore ancient Roman ruins, marvel at Renaissance art, and indulge in world-famous cuisine.',
+    attractions: [ { name: 'Colosseum' }, { name: 'Canals of Venice' }, { name: 'Florence Cathedral' } ],
+    imageHint: 'Colosseum Rome',
+  },
+  {
+    country: 'India',
+    description: 'A land of vibrant cultures, ancient traditions, and architectural marvels like the iconic Taj Mahal.',
+    attractions: [ { name: 'Taj Mahal' }, { name: 'Amber Palace' }, { name: 'Qutub Minar' } ],
+    imageHint: 'Taj Mahal',
+  },
+  {
+    country: 'China',
+    description: 'Discover the epic scale of the Great Wall, the history of the Forbidden City, and futuristic cityscapes.',
+    attractions: [ { name: 'Great Wall' }, { name: 'Forbidden City' }, { name: 'Terracotta Army' } ],
+    imageHint: 'Great Wall',
+  },
+  {
+    country: 'Peru',
+    description: 'Journey to the heart of the Inca Empire, from the mystical heights of Machu Picchu to the historic city of Cusco.',
+    attractions: [ { name: 'Machu Picchu' }, { name: 'Sacred Valley' }, { name: 'Cusco Cathedral' } ],
+    imageHint: 'Machu Picchu',
+  },
+  {
+    country: 'Mexico',
+    description: 'Uncover ancient Mayan ruins at Chichen Itza, relax on pristine beaches, and enjoy vibrant local culture.',
+    attractions: [ { name: 'Chichen Itza' }, { name: 'Tulum Ruins' }, { name: 'Palenque' } ],
+    imageHint: 'Chichen Itza',
+  },
+  {
+    country: 'Jordan',
+    description: 'Witness the ancient city of Petra, carved into rose-red cliffs, and float in the buoyant Dead Sea.',
+    attractions: [ { name: 'Petra' }, { name: 'Wadi Rum' }, { name: 'Dead Sea' } ],
+    imageHint: 'Petra Jordan',
+  },
+  {
+    country: 'Egypt',
+    description: 'Stand in awe of the Great Pyramids of Giza, the last surviving wonder of the ancient world.',
+    attractions: [ { name: 'Pyramids of Giza' }, { name: 'Valley of the Kings' }, { name: 'Karnak Temple' } ],
+    imageHint: 'Pyramids Giza',
+  },
 ];
 
 
